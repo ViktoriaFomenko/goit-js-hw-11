@@ -3,15 +3,23 @@ const searchForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 const galleryList = document.querySelector('.gallery');
 let searchQuery = '';
+let page = 1;
 
 searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
 
 function onSearch(e) {
   e.preventDefault();
-  searchQuery = e.currentTarget.elements.searchQuery.value;
+  const searchQuery = e.currentTarget.elements.searchQuery.value;
   galleryList.innerHTML = '';
-  fetchCard(searchQuery).then(renderCard);
+
+  fetchCard(searchQuery)
+    .then(renderCard)
+    .catch(error => {
+      alert(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    });
 }
 
 function onLoadMore() {
