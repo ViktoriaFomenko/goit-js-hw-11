@@ -13,13 +13,12 @@ function onSearch(e) {
   const searchQuery = e.currentTarget.elements.searchQuery.value;
   galleryList.innerHTML = '';
 
-  fetchCard(searchQuery)
-    .then(renderCard)
-    .catch(error => {
-      alert(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-    });
+  fetchCard(searchQuery).then(renderCard);
+  // .catch(error => {
+  //   alert(
+  //     'Sorry, there are no images matching your search query. Please try again.'
+  //   );
+  // });
 }
 
 function onLoadMore() {
