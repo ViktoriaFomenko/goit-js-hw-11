@@ -1,4 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import fetchCard from './API-service';
 const searchForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
@@ -28,10 +30,17 @@ function onSearch(e) {
 
 function onLoadMore() {
   fetchCard(searchQuery, currentPage++).then(renderCard);
+
+  // if () {
+  //   return Notify.failure(
+  //     "We're sorry, but you've reached the end of search results."
+  //   );
+  // }
+  // btnHide();
 }
 
-function renderCard({ hits }) {
-  const markup = hits
+function renderCard(card) {
+  const markup = card
     .map(
       ({
         webformatURL,
@@ -43,7 +52,9 @@ function renderCard({ hits }) {
         downloads,
       }) => {
         return `<div class="photo-card">
+        <a href ="${largeImageURL}">
   <img src="${webformatURL}" alt="${tags}" loading="lazy" width=150px/>
+  </a>
   <div class="info">
     <p class="info-item">
       <b>Likes: ${likes}</b>
@@ -65,6 +76,9 @@ function renderCard({ hits }) {
 
   galleryList.insertAdjacentHTML('beforeend', markup);
 }
+
+const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250 });
+
 function btnShow() {
   loadMoreBtn.classList.remove('is-hidden');
 }
