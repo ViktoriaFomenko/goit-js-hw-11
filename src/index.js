@@ -15,11 +15,11 @@ function onSearch(e) {
   btnShow();
   const searchQuery = e.currentTarget.elements.searchQuery.value;
 
-  if (hits === []) {
-    return Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  }
+  // if () {
+  //   return Notify.failure(
+  //     'Sorry, there are no images matching your search query. Please try again.'
+  //   );
+  // }
   galleryList.innerHTML = '';
 
   currentPage = 1;
