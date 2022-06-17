@@ -1,0 +1,27 @@
+.search-form {
+  padding: 20px;
+  text-align: center;
+}
+.search {
+  background-color: rgb(181, 197, 227);
+  color: navy;
+  cursor: pointer;
+}
+
+.load-more {
+  background-color: rgb(181, 197, 227);
+  color: navy;
+  margin-left: 40px;
+  cursor: pointer;
+}
+
+.load-more.is-hidden {
+  display: none;
+}
+
+.gallery {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px;
+}
