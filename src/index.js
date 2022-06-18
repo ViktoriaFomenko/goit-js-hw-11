@@ -20,34 +20,41 @@ function clear() {
   btnShow();
 }
 
-function onSearch(e) {
-  e.preventDefault();
-  btnShow();
-  const searchQuery = e.currentTarget.elements.searchQuery.value;
-  clear();
-  fetchCard(searchQuery, currentPage).then(handleResult);
+async function onSearch(e) {
+  try {
+    e.preventDefault();
+    btnShow();
+    const searchQuery = e.currentTarget.elements.searchQuery.value;
+    clear();
+    const result = await fetchCard(searchQuery, currentPage);
+    handleResult(result);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-function onLoadMore() {
-  fetchCard(searchQuery, currentPage++).then(handleResult);
+async function onLoadMore() {
+  const result = await fetchCard(searchQuery, currentPage++);
+  handleResult(result);
 }
 
 function handleResult(result) {
   let totalHits = result.totalHits;
+  cards = result.hits;
+  totalElements += cards.length;
   if (totalHits === 0) {
     btnHide();
     return Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  if (totalElements >= result.totalHits) {
+  if (totalElements >= totalHits) {
     btnHide();
     return Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
   }
-  cards = result.hits;
-  totalElements += cards.length;
+
   renderCard(cards);
 }
 
@@ -65,7 +72,7 @@ function renderCard(cards) {
       }) => {
         return `<div class="photo-card">
         <a href ="${largeImageURL}">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" width=150px/>
+  <img src="${webformatURL}" alt="${tags}" loading="lazy" width=300px height=200px onclick="event.preventDefault()/>
   </a>
   <div class="info">
     <p class="info-item">
@@ -89,11 +96,11 @@ function renderCard(cards) {
   galleryList.insertAdjacentHTML('beforeend', markup);
 }
 
-const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250 });
-
 function btnShow() {
   loadMoreBtn.classList.remove('is-hidden');
 }
 function btnHide() {
   loadMoreBtn.classList.add('is-hidden');
 }
+
+// const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250 });
