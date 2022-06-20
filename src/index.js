@@ -6,11 +6,12 @@ const searchForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 const galleryList = document.querySelector('.gallery');
 let searchQuery = '';
-let currentPage;
+let currentPage = 1;
 let totalElements;
 
 searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
+
 btnHide();
 
 function clear() {
@@ -34,7 +35,7 @@ async function onSearch(e) {
 }
 
 async function onLoadMore() {
-  const result = await fetchCard(searchQuery, currentPage++);
+  const result = await fetchCard(searchQuery, ++currentPage);
   handleResult(result);
 }
 
@@ -71,8 +72,8 @@ function renderCard(cards) {
         downloads,
       }) => {
         return `<div class="photo-card">
-        <a href ="${largeImageURL}">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" width=300px height=200px onclick="event.preventDefault()/>
+        <a class="gallery" href ="${largeImageURL}"  onclick="event.preventDefault()">
+  <img class="gallery" src="${webformatURL}" alt="${tags}" loading="lazy" width=200px/>
   </a>
   <div class="info">
     <p class="info-item">
@@ -94,6 +95,7 @@ function renderCard(cards) {
     .join('');
 
   galleryList.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
 }
 
 function btnShow() {
@@ -102,5 +104,6 @@ function btnShow() {
 function btnHide() {
   loadMoreBtn.classList.add('is-hidden');
 }
-
-// const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250 });
+const lightbox = new SimpleLightbox('.gallery .photo-card a', {
+  captionDelay: 250,
+});

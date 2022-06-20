@@ -1,22 +1,17 @@
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
 .search-form {
   padding: 20px;
   text-align: center;
+  background-color: azure;
 }
 .search {
-  background-color: rgb(181, 197, 227);
-  color: navy;
+  background-color: antiquewhite;
+  color: black;
   cursor: pointer;
 }
 
 .load-more {
-  background-color: rgb(181, 197, 227);
-  color: navy;
+  background-color: antiquewhite;
+  color: black;
   margin-left: 40px;
   cursor: pointer;
 }
@@ -28,9 +23,10 @@ img {
 .gallery {
   display: flex;
   flex-wrap: wrap;
+  padding-left: 30px;
   margin-left: -30px;
 }
-.photocard {
-  width: calc(100% / 4 - 30px);
+.photo-card {
+  width: calc(100% / 5 - 30px);
   margin-left: 30px;
 }
