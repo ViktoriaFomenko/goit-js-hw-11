@@ -41,7 +41,7 @@ async function onLoadMore() {
 
 function handleResult(result) {
   let totalHits = result.totalHits;
-  cards = result.hits;
+  const cards = result.hits;
   totalElements += cards.length;
   if (totalHits === 0) {
     btnHide();
