@@ -24,8 +24,11 @@ function clear() {
 async function onSearch(e) {
   try {
     e.preventDefault();
-    btnShow();
     const searchQuery = e.currentTarget.elements.searchQuery.value;
+    if (searchQuery === '') {
+      return Notify.failure('Pleaase enter something!');
+    }
+    btnShow();
     clear();
     const result = await fetchCard(searchQuery, currentPage);
     handleResult(result);
@@ -43,6 +46,9 @@ function handleResult(result) {
   let totalHits = result.totalHits;
   const cards = result.hits;
   totalElements += cards.length;
+  if (currentPage === 1 && totalHits !== 0) {
+    Notify.info(`"Hooray! We found ${totalHits} images."!`);
+  }
   if (totalHits === 0) {
     btnHide();
     return Notify.failure(
@@ -55,7 +61,6 @@ function handleResult(result) {
       "We're sorry, but you've reached the end of search results."
     );
   }
-
   renderCard(cards);
 }
 
@@ -73,7 +78,7 @@ function renderCard(cards) {
       }) => {
         return `<div class="photo-card">
         <a class="gallery" href ="${largeImageURL}"  onclick="event.preventDefault()">
-  <img class="gallery" src="${webformatURL}" alt="${tags}" loading="lazy" width=200px/>
+  <img class="gallery" src="${webformatURL}" alt="${tags}" loading="lazy" width=250px/>
   </a>
   <div class="info">
     <p class="info-item">
@@ -95,6 +100,7 @@ function renderCard(cards) {
     .join('');
 
   galleryList.insertAdjacentHTML('beforeend', markup);
+
   lightbox.refresh();
 }
 
