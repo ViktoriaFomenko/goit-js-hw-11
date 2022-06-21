@@ -24,7 +24,7 @@ function clear() {
 async function onSearch(e) {
   try {
     e.preventDefault();
-    const searchQuery = e.currentTarget.elements.searchQuery.value;
+    searchQuery = e.currentTarget.elements.searchQuery.value;
     if (searchQuery === '') {
       return Notify.failure('Pleaase enter something!');
     }
