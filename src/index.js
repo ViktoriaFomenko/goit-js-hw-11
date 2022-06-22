@@ -57,7 +57,7 @@ function handleResult(result) {
   }
   if (totalElements >= totalHits) {
     btnHide();
-    return Notify.failure(
+    Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
   }
